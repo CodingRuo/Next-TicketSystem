@@ -1,5 +1,6 @@
 import { intitialTickets } from '@/data';
 import { ticketPath } from '@/path';
+import clsx from 'clsx';
 import Link from 'next/link';
 
 const TICKET_ICONS = {
@@ -17,12 +18,23 @@ const TicketsPage = () => {
           All your ticktes at one place
         </p>
       </div>
-      <div className="flex-1 flex flex-col items-center pag-y-4">
+      <div className="flex-1 flex flex-col items-center gap-y-4">
         {intitialTickets.map((ticket) => (
-          <div key={ticket.id} className='w-full max-w-[420px] p-4 border border-slate-100 rounded'>
+          <div
+            key={ticket.id}
+            className="w-full max-w-[420px] p-4 border border-slate-100 rounded"
+          >
             <div>{TICKET_ICONS[ticket.status]}</div>
-            <h3 className="text-lg font-semibold truncate">{ticket.title}</h3>
-            <p className="text-sm text-slate-400 truncate">{ticket.content}</p>
+            <h3 className="text-lg font-semibold truncate">
+              {ticket.title}
+            </h3>
+            <p
+              className={clsx('text-sm text-slate-500 truncate', {
+                'line-through': ticket.status === 'DONE',
+              })}
+            >
+              {ticket.content}
+            </p>
             <Link
               href={ticketPath(ticket.id)}
               className="text-sm underline"
