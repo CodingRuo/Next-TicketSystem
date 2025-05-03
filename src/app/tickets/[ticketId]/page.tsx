@@ -2,6 +2,7 @@ import { Placeholder } from "@/components/placeholder";
 import { Button } from "@/components/ui/button";
 import { intitialTickets } from "@/data";
 import { TicketItem } from "@/features/ticket/components/ticket-item";
+import { getTicket } from "@/features/ticket/queries/get-tickets";
 import { ticketsPath } from "@/path";
 import Link from "next/link";
 
@@ -13,7 +14,7 @@ type TicketsPageProps = {
 
 const TicketPage = async ({ params }: TicketsPageProps) => {
     const { ticketId } = await params;
-    const ticket = intitialTickets.find((ticket) => ticket.id === ticketId);
+    const ticket = await getTicket(ticketId);
 
     if (!ticket) {
         return (

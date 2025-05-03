@@ -8,3 +8,13 @@ export const getTickets = async (): Promise<Ticket[]> => {
         resolve(intitialTickets)
     });
 };
+
+export const getTicket = async (id: string): Promise<Ticket | null> => {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    const maybeTicket = intitialTickets.find((ticket) => ticket.id === id);
+
+    return new Promise((resolve) => {
+        resolve(maybeTicket || null);
+    });
+}
