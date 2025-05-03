@@ -40,7 +40,7 @@ export default function RootLayout({
           "
         >
           <div>
-              <Link href={homePath()} className={buttonVariants({ variant: 'ghost' })}>
+              <Link href={homePath()} className={buttonVariants({ variant: 'default' })}>
                 <LucideKanban />
                 <h1 className="text-lg font-semibold">TicketBounty</h1>
               </Link>
