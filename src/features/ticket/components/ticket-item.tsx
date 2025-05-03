@@ -13,6 +13,7 @@ type TicketItemProps = {
 }
 
 const TicketItem = ({ ticket, isDetail }: TicketItemProps) => {
+    console.log('Where am I displayed?')
     const detailButton = (
         <Button variant={"outline"} size={"icon"} asChild>
             <Link href={ticketPath(ticket.id)}>
