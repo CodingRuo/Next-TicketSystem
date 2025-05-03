@@ -1,7 +1,6 @@
 import { Heading } from '@/components/heading';
 import { Spinner } from '@/components/spinner';
 import { Ticketlist } from '@/features/ticket/components/ticket-list';
-import { getTickets } from '@/features/ticket/queries/get-tickets';
 import { Suspense } from 'react';
 
 const TicketsPage = async () => {
@@ -11,9 +10,9 @@ const TicketsPage = async () => {
         title="Tickets"
         description="All your ticktes at one place"
       />
-      <Suspense fallback={ <Spinner/> }>
-        <Ticketlist />
-      </Suspense>
+        <Suspense fallback={<Spinner />}>
+          <Ticketlist />
+        </Suspense>
     </div>
   );
 };
