@@ -1,8 +1,8 @@
-import { homePath, ticketsPath } from "@/path"
 import { LucideKanban } from "lucide-react"
-import { buttonVariants } from "./ui/button"
 import Link from "next/link"
+import { homePath, ticketsPath } from "@/path"
 import { ThemeSwitcher } from "./theme/theme-switcher"
+import { buttonVariants } from "./ui/button"
 
 const Header = () => {
     return (

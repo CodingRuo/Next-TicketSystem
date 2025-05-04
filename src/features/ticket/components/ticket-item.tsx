@@ -1,12 +1,12 @@
-import { Card, CardContent, CardHeader, CardTitle }  from "@/components/ui/card";
-import { TICKET_ICONS }                              from "../constants";
-import Link                                          from "next/link";
-import { ticketPath }                                from "@/path";
-import { Button }                                    from "@/components/ui/button";
-import { LucideArrowUpRightFromSquare, LucideTrash } from "lucide-react";
 import clsx                                          from "clsx";
+import { LucideArrowUpRightFromSquare, LucideTrash } from "lucide-react";
+import Link                                          from "next/link";
+import { Button }                                    from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle }  from "@/components/ui/card";
 import { Ticket }                                    from "@/generated";
+import { ticketPath }                                from "@/path";
 import { deleteTicket } from "../actions/delete-ticket";
+import { TICKET_ICONS }                              from "../constants";
 
 type TicketItemProps = {
     ticket: Ticket;
@@ -16,7 +16,7 @@ type TicketItemProps = {
 const TicketItem = ({ ticket, isDetail }: TicketItemProps) => {
     const detailButton = (
         <Button variant={"outline"} size={"icon"} asChild>
-            <Link href={ticketPath(ticket.id)}>
+            <Link prefetch href={ticketPath(ticket.id)}>
                 <LucideArrowUpRightFromSquare className="h-4 w-4"/>
             </Link>
         </Button>

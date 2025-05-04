@@ -1,10 +1,6 @@
-import { homePath, ticketsPath } from '@/path';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import Link from 'next/link';
-import { buttonVariants } from '@/components/ui/button';
-import { LucideKanban } from 'lucide-react';
 import { Header } from '@/components/header';
 import { ThemeProvider } from '@/components/theme/theme-provider';
 
