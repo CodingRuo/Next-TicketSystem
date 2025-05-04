@@ -6,7 +6,6 @@ import { Button }                                    from "@/components/ui/butto
 import { LucideArrowUpRightFromSquare, LucideTrash } from "lucide-react";
 import clsx                                          from "clsx";
 import { Ticket }                                    from "@/generated";
-import { prisma } from "@/lib/prisma";
 import { deleteTicket } from "../actions/delete-ticket";
 
 type TicketItemProps = {
@@ -15,10 +14,6 @@ type TicketItemProps = {
 }
 
 const TicketItem = ({ ticket, isDetail }: TicketItemProps) => {
-    const handleDeleteTicket = async () => {
-        await deleteTicket(ticket.id);
-    }
-
     const detailButton = (
         <Button variant={"outline"} size={"icon"} asChild>
             <Link href={ticketPath(ticket.id)}>
@@ -28,9 +23,11 @@ const TicketItem = ({ ticket, isDetail }: TicketItemProps) => {
     );
 
     const deleteButton = (
-        <Button variant={"outline"} size={"icon"} onClick={handleDeleteTicket}>
-            <LucideTrash className="h-4 w-4" />
-        </Button>
+        <form action={deleteTicket.bind(null, ticket.id)}>
+            <Button variant={"outline"} size={"icon"}>
+                <LucideTrash className="h-4 w-4" />
+            </Button>
+        </form>
     )
     return (
         <div 
