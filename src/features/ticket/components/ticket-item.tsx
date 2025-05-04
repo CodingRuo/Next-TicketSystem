@@ -1,11 +1,13 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Ticket }                                   from "../types"
-import { TICKET_ICONS }                             from "../constants";
-import Link                                         from "next/link";
-import { ticketPath }                               from "@/path";
-import { Button }                                   from "@/components/ui/button";
-import { LucideArrowUpRightFromSquare }             from "lucide-react";
-import clsx                                         from "clsx";
+import { Card, CardContent, CardHeader, CardTitle }  from "@/components/ui/card";
+import { TICKET_ICONS }                              from "../constants";
+import Link                                          from "next/link";
+import { ticketPath }                                from "@/path";
+import { Button }                                    from "@/components/ui/button";
+import { LucideArrowUpRightFromSquare, LucideTrash } from "lucide-react";
+import clsx                                          from "clsx";
+import { Ticket }                                    from "@/generated";
+import { prisma } from "@/lib/prisma";
+import { deleteTicket } from "../actions/delete-ticket";
 
 type TicketItemProps = {
     ticket: Ticket;
@@ -13,6 +15,10 @@ type TicketItemProps = {
 }
 
 const TicketItem = ({ ticket, isDetail }: TicketItemProps) => {
+    const handleDeleteTicket = async () => {
+        await deleteTicket(ticket.id);
+    }
+
     const detailButton = (
         <Button variant={"outline"} size={"icon"} asChild>
             <Link href={ticketPath(ticket.id)}>
@@ -20,6 +26,12 @@ const TicketItem = ({ ticket, isDetail }: TicketItemProps) => {
             </Link>
         </Button>
     );
+
+    const deleteButton = (
+        <Button variant={"outline"} size={"icon"} onClick={handleDeleteTicket}>
+            <LucideTrash className="h-4 w-4" />
+        </Button>
+    )
     return (
         <div 
             className={clsx("w-full flex gap-x-1", {
@@ -42,11 +54,7 @@ const TicketItem = ({ ticket, isDetail }: TicketItemProps) => {
                     >{ticket.content}</span>
                 </CardContent>
             </Card>
-            {isDetail ? null : (
-                <div className="flex flex-col gap-y-1">
-                    {detailButton}
-                </div>
-            )}
+            {isDetail ? deleteButton : detailButton}
         </div>
     )
 }

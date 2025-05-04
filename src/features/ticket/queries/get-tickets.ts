@@ -1,4 +1,4 @@
-import { Ticket } from "../types";
+import { Ticket } from "@/generated";
 import { prisma } from "@/lib/prisma";
 
 export const getTickets = async (): Promise<Ticket[]> => {
