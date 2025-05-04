@@ -2,8 +2,8 @@ import { Suspense } from 'react';
 import { Heading } from '@/components/heading';
 import { Spinner } from '@/components/spinner';
 import { Ticketlist } from '@/features/ticket/components/ticket-list';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { TicketCreateForm } from '@/features/ticket/components/ticket-create-form';
+import { CardCompact } from '@/components/card-compact';
 
 const TicketsPage = async () => {
   return (
@@ -12,16 +12,12 @@ const TicketsPage = async () => {
         title="Tickets"
         description="All your ticktes at one place"
       />
-      <Card className='w-full max-w-[420px] self-center'>
-        <CardHeader>
-          <CardTitle>Create Ticket</CardTitle>
-          <CardDescription>A new ticket will be created</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <TicketCreateForm />
-        </CardContent>
-      </Card>
-
+      <CardCompact
+        title='Create a ticket'
+        description='A new ticket will be created'
+        className='w-full max-w-[420px] self-center'
+        content={ <TicketCreateForm /> }
+      />
         <Suspense fallback={<Spinner />}>
           <Ticketlist />
         </Suspense>
