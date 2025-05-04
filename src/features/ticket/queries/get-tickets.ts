@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { Ticket } from "@/generated";
 import { prisma } from "@/lib/prisma";
 
@@ -9,10 +10,10 @@ export const getTickets = async (): Promise<Ticket[]> => {
     });
 };
 
-export const getTicket = async (id: string): Promise<Ticket | null> => {
+export const getTicket = cache(async (id: string): Promise<Ticket | null> => {
     return await prisma.ticket.findUnique({
         where: {
             id
         }
     })
-}
+})
