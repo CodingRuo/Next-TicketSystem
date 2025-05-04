@@ -1,10 +1,10 @@
 import clsx                                          from "clsx";
-import { LucideArrowUpRightFromSquare, LucideTrash } from "lucide-react";
+import { LucideArrowUpRightFromSquare, LucidePencil, LucideTrash } from "lucide-react";
 import Link                                          from "next/link";
 import { Button }                                    from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle }  from "@/components/ui/card";
 import { Ticket }                                    from "@/generated";
-import { ticketPath }                                from "@/path";
+import { ticketEditPath, ticketPath }                                from "@/path";
 import { deleteTicket } from "../actions/delete-ticket";
 import { TICKET_ICONS }                              from "../constants";
 
@@ -28,6 +28,14 @@ const TicketItem = async ({ ticket, isDetail }: TicketItemProps) => {
                 <LucideTrash className="h-4 w-4" />
             </Button>
         </form>
+    );
+
+    const editButton = (
+        <Button variant={"outline"} size={"icon"} asChild>
+            <Link prefetch href={ticketEditPath(ticket.id)}>
+                <LucidePencil className="h-4 w-4" />
+            </Link>
+        </Button>
     )
     return (
         <div 
@@ -51,7 +59,17 @@ const TicketItem = async ({ ticket, isDetail }: TicketItemProps) => {
                     >{ticket.content}</span>
                 </CardContent>
             </Card>
-            {isDetail ? deleteButton : detailButton}
+            {isDetail ? 
+                <>
+                    {editButton}
+                    {deleteButton}
+                </>
+                :
+                <>
+                    {detailButton}
+                    {editButton}
+                </>
+            }
         </div>
     )
 }
