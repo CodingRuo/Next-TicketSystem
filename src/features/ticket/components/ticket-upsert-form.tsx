@@ -10,7 +10,7 @@ type TicketUpsertFormProps = {
 
 const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
     return (
-        <form action={upsertTicket.bind(null, ticket?.id)} className="flex flex-col-gap-y-2">
+        <form action={upsertTicket.bind(null, ticket?.id)} className="flex flex-col gap-y-2">
             <Label htmlFor="title">Title</Label>
             <Input id="title" name="title" type="text" defaultValue={ticket?.title} />
 
