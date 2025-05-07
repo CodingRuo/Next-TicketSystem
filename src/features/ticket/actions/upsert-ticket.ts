@@ -1,5 +1,6 @@
 "use server";
 
+import { fromErrorToActionState } from "@/components/form/utils/to-action-state";
 import { prisma } from "@/lib/prisma";
 import { ticketPath, ticketsPath } from "@/path";
 import { revalidatePath } from "next/cache";
@@ -31,7 +32,7 @@ export const upsertTicket = async (
             create: data
         });
     } catch(error) {
-        return { message: "Something went wrong", payload: formData }
+        return fromErrorToActionState(error, formData);
     }
 
     revalidatePath(ticketsPath());
