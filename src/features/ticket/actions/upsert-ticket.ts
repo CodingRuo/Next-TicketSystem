@@ -11,7 +11,14 @@ const upsertTicketSchema = z.object({
     content: z.string().min(1).max(1024),
 });
 
-export const upsertTicket = async (id: string | undefined, _actionState: { message: string}, formData: FormData) => {
+export const upsertTicket = async (
+    id: string | undefined, 
+    _actionState: { 
+        message: string,
+        payload?: FormData
+    },
+    formData: FormData
+) => {
     try {
         const data = upsertTicketSchema.parse({
             title: formData.get("title"),
@@ -24,7 +31,7 @@ export const upsertTicket = async (id: string | undefined, _actionState: { messa
             create: data
         });
     } catch(error) {
-        return { message: "Something went wrong" }
+        return { message: "Something went wrong", payload: formData }
     }
 
     revalidatePath(ticketsPath());
