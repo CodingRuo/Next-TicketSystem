@@ -1,7 +1,7 @@
 import React from "react";
-import { ActionState } from "./utils/to-action-state";
-import { useActionFeedback } from "./hooks/use-action-feedback";
 import { toast } from "sonner";
+import { useActionFeedback } from "./hooks/use-action-feedback";
+import { ActionState } from "./utils/to-action-state";
 
 type FormProps = {
     action: (payload: FormData) => void;
@@ -23,6 +23,15 @@ const Form = ({ action, actionState, children }: FormProps) => {
     return (
         <form action={action} className="flex flex-col gap-y-2">
             {children}
+            <noscript>
+                {actionState.status === "ERROR" && (
+                    <div style={{ color: "red" }}>{actionState.message}</div>
+                )}
+
+                {actionState.status === "SUCCESS" && (
+                    <div style={{ color: "green" }}>{actionState.message}</div>
+                )}
+            </noscript>
         </form>
     )
 }
