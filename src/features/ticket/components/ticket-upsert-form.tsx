@@ -8,6 +8,8 @@ import { SubmitButton } from "@/components/form/submit-button";
 import { useActionState } from "react";
 import { EMPTY_ACTION_STATE } from "@/components/form/utils/to-action-state";
 import { useActionFeedback } from "@/components/form/hooks/use-action-feedback";
+import { toast } from "sonner";
+import { Form } from "@/components/form/form";
 
 type TicketUpsertFormProps = {
     ticket?: Ticket;
@@ -21,17 +23,16 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
 
     useActionFeedback(actionState, {
         onSuccess: ({ actionState }) => {
-            console.log(actionState.message);
-            // TODO: Optionally handle success
+            toast.success(actionState.message);
         },
         onError: ({ actionState }) => {
             console.log(actionState.message);
-            // TODO: Optionally handle error
+            toast.error(actionState.message);
         },
     })
 
     return (
-        <form action={action} className="flex flex-col gap-y-2">
+        <Form action={action} actionState={actionState}>
             <Label htmlFor="title">Title</Label>
             <Input id="title" name="title" type="text" defaultValue={
                 (actionState.payload?.get("title") as string) ?? ticket?.title
@@ -49,7 +50,7 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
             </span>
 
             <SubmitButton label={ticket ? "Edit" : "Create"} />
-        </form>
+        </Form>
     );
 }
 
