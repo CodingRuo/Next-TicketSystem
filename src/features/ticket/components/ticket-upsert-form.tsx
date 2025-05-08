@@ -24,11 +24,17 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
             <Input id="title" name="title" type="text" defaultValue={
                 (actionState.payload?.get("title") as string) ?? ticket?.title
             } />
+            <span className="text-xs text-red-500">
+                {actionState.fieldErrors.title?.[0]}
+            </span>
 
             <Label htmlFor="content">Content</Label>
             <Input id="content" name="content" type="text" defaultValue={
                 (actionState.payload?.get("content") as string) ?? ticket?.content
             } />
+            <span className="text-xs text-red-500">
+                {actionState.fieldErrors.content?.[0]}
+            </span>
 
             <SubmitButton label={ticket ? "Edit" : "Create"} />
 
