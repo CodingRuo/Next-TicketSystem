@@ -2,7 +2,7 @@ import clsx                                          from "clsx";
 import { LucideArrowUpRightFromSquare, LucidePencil, LucideTrash } from "lucide-react";
 import Link                                          from "next/link";
 import { Button }                                    from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle }  from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle }  from "@/components/ui/card";
 import { Ticket }                                    from "@/generated";
 import { ticketEditPath, ticketPath }                                from "@/path";
 import { deleteTicket } from "../actions/delete-ticket";
@@ -58,6 +58,10 @@ const TicketItem = async ({ ticket, isDetail }: TicketItemProps) => {
                         })}
                     >{ticket.content}</span>
                 </CardContent>
+                <CardFooter className="flex justify-between">
+                    <p className="text-sm text-muted-foreground">{ticket.deadline}</p>
+                    <p className="text-sm text-muted-foreground">{ticket.bounty}</p>
+                </CardFooter>
             </Card>
             {isDetail ? 
                 <>
