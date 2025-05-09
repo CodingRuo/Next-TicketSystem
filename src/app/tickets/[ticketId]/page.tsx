@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import { TicketItem } from "@/features/ticket/components/ticket-item";
 import { getTicket } from "@/features/ticket/queries/get-tickets";
-import { RedirectToast } from "@/components/redirect-toast";
 
 type TicketsPageProps = {
     params: Promise<{
@@ -18,12 +17,9 @@ const TicketPage = async ({ params }: TicketsPageProps) => {
     }
 
     return (
-        <>
-            <div className="flex justify-center animate-fade-from-top">
-                <TicketItem ticket={ticket} isDetail />
-            </div>
-            <RedirectToast />
-        </>
+        <div className="flex justify-center animate-fade-from-top">
+            <TicketItem ticket={ticket} isDetail />
+        </div>
     )
 };
 
