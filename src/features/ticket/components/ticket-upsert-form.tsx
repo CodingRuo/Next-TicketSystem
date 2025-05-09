@@ -1,15 +1,16 @@
 "use client";
 
 import { useActionState } from "react";
+import { FieldError } from "@/components/form/field-error";
 import { Form } from "@/components/form/form";
 import { SubmitButton } from "@/components/form/submit-button";
 import { EMPTY_ACTION_STATE } from "@/components/form/utils/to-action-state";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Ticket } from "@/generated"
-import { upsertTicket } from "../actions/upsert-ticket";
-import { FieldError } from "@/components/form/field-error";
 import { fromCent } from "@/utils/currency";
+import { upsertTicket } from "../actions/upsert-ticket";
+import { DatePicker } from "@/components/date-picker";
 
 type TicketUpsertFormProps = {
     ticket?: Ticket;
@@ -42,7 +43,12 @@ const TicketUpsertForm = ({ ticket }: TicketUpsertFormProps) => {
             <div className="flex gap-x-2 mb-1">
                 <div className="w-1/2">
                     <Label htmlFor="deadline">Deadline</Label>
-                    <Input id="deadline" name="deadline" type="date" defaultValue={(actionState.payload?.get("deadline") as string) ?? ticket?.deadline} />
+                    {/* <Input id="deadline" name="deadline" type="date" defaultValue={(actionState.payload?.get("deadline") as string) ?? ticket?.deadline} />*/}
+                    <DatePicker
+                        id="deadline"
+                        name="deadline"
+                        defaultValue={(actionState.payload?.get("deadline") as string) ?? ticket?.deadline}
+                    />
                     <FieldError actionState={actionState} name="deadline" />
                 </div>
                 <div className="w-1/2">

@@ -5,9 +5,9 @@ import { Button }                                    from "@/components/ui/butto
 import { Card, CardContent, CardFooter, CardHeader, CardTitle }  from "@/components/ui/card";
 import { Ticket }                                    from "@/generated";
 import { ticketEditPath, ticketPath }                                from "@/path";
+import { toCurrencyFromCent } from "@/utils/currency";
 import { deleteTicket } from "../actions/delete-ticket";
 import { TICKET_ICONS }                              from "../constants";
-import { toCurrencyFromCent } from "@/utils/currency";
 
 type TicketItemProps = {
     ticket: Ticket;
