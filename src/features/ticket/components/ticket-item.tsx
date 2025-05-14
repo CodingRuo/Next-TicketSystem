@@ -6,10 +6,8 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Ticket } from "@/generated";
 import { ticketEditPath, ticketPath } from "@/path";
 import { toCurrencyFromCent } from "@/utils/currency";
-import { deleteTicket } from "../actions/delete-ticket";
 import { TICKET_ICONS } from "../constants";
 import { TicketMoreMenu } from "./ticket-more-menu";
-import { ConfirmDialog } from "@/components/confirm-dialog";
 
 type TicketItemProps = {
     ticket: Ticket;
@@ -23,17 +21,6 @@ const TicketItem = async ({ ticket, isDetail }: TicketItemProps) => {
                 <LucideArrowUpRightFromSquare className="h-4 w-4" />
             </Link>
         </Button>
-    );
-
-    const deleteButton = (
-        <ConfirmDialog
-            action={deleteTicket.bind(null, ticket.id)}
-            trigger={
-                <Button variant={"outline"} size={"icon"}>
-                    <LucideTrash className="h-4 w-4" />
-                </Button>
-            }
-        />
     );
 
     const editButton = (
@@ -83,7 +70,6 @@ const TicketItem = async ({ ticket, isDetail }: TicketItemProps) => {
             {isDetail ?
                 <>
                     {editButton}
-                    {deleteButton}
                     {moreMenu}
                 </>
                 :

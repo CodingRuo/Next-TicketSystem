@@ -1,22 +1,37 @@
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "./ui/alert-dialog";
+import { cloneElement, useState } from "react";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Button } from "./ui/button";
 
-type ConfirmDialogProps = {
+type UseConfirmDialogArgs = {
     title?: string;
     description?: string;
     action: (payload: FormData) => void;
-    trigger: React.ReactElement;
-}
+    trigger: React.ReactElement<{ onClick?: () => void }>;
+};
 
-const ConfirmDialog = ({
+const useConfirmDialog = ({
     title = "Are you absolutely sure?",
-    description = "This action action cannot be undone. Make sure you understand the conseque\nces.",
+    description = "This action cannot be undone. Make sure you understand the consequences.",
     action,
-    trigger
-}: ConfirmDialogProps) => {
-    return (
-        <AlertDialog>
-            <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>
+    trigger,
+}: UseConfirmDialogArgs) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const dialogTrigger = cloneElement(trigger, {
+        onClick: () => setIsOpen((state) => !state),
+    });
+
+    const dialog = (
+        <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
             <AlertDialogContent>
                 <AlertDialogHeader>
                     <AlertDialogTitle>{title}</AlertDialogTitle>
@@ -33,6 +48,8 @@ const ConfirmDialog = ({
             </AlertDialogContent>
         </AlertDialog>
     );
+
+    return [dialogTrigger, dialog] as const;
 };
 
-export { ConfirmDialog }
+export { useConfirmDialog };
