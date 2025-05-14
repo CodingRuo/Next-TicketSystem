@@ -14,10 +14,16 @@ type TicketMoreMenuProps = {
 
 const TicketMoreMenu = ({ ticket, trigger }: TicketMoreMenuProps) => {
     const handleUpdateTicketStatus = async (value: string) => {
-        const result = await updateTicketStatus(
+        const promise = updateTicketStatus(
             ticket.id, 
             value as TicketStatus
         );
+
+        toast.promise(promise, {
+            loading: "Updating status..."
+        });
+
+        const result = await promise;
 
         if (result.status === "ERROR") {
             toast.error(result.message);
