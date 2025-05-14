@@ -1,4 +1,5 @@
 
+import { SearchInput } from '@/components/search-input';
 import { getTickets } from '../queries/get-tickets';
 import { TicketItem } from './ticket-item';
 
@@ -11,6 +12,9 @@ const Ticketlist = async ({ userId }: TicketListProps) => {
 
   return (
     <div className="flex-1 flex flex-col items-center gap-y-4 animate-fade-from-top">
+        <div className="w-full max-w-[420px]">
+           <SearchInput placeholder="Serach tickets..." />
+        </div>
       {tickets.map((ticket) => (
         <TicketItem key={ticket.id} ticket={ticket} />
       ))}
