@@ -1,13 +1,14 @@
-import clsx                                          from "clsx";
-import { LucideArrowUpRightFromSquare, LucidePencil, LucideTrash } from "lucide-react";
-import Link                                          from "next/link";
-import { Button }                                    from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle }  from "@/components/ui/card";
-import { Ticket }                                    from "@/generated";
-import { ticketEditPath, ticketPath }                                from "@/path";
+import clsx from "clsx";
+import { LucideArrowUpRightFromSquare, LucideMoreVertical, LucidePencil, LucideTrash } from "lucide-react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Ticket } from "@/generated";
+import { ticketEditPath, ticketPath } from "@/path";
 import { toCurrencyFromCent } from "@/utils/currency";
 import { deleteTicket } from "../actions/delete-ticket";
-import { TICKET_ICONS }                              from "../constants";
+import { TICKET_ICONS } from "../constants";
+import { TicketMoreMenu } from "./ticket-more-menu";
 
 type TicketItemProps = {
     ticket: Ticket;
@@ -18,7 +19,7 @@ const TicketItem = async ({ ticket, isDetail }: TicketItemProps) => {
     const detailButton = (
         <Button variant={"outline"} size={"icon"} asChild>
             <Link prefetch href={ticketPath(ticket.id)}>
-                <LucideArrowUpRightFromSquare className="h-4 w-4"/>
+                <LucideArrowUpRightFromSquare className="h-4 w-4" />
             </Link>
         </Button>
     );
@@ -37,9 +38,20 @@ const TicketItem = async ({ ticket, isDetail }: TicketItemProps) => {
                 <LucidePencil className="h-4 w-4" />
             </Link>
         </Button>
+    );
+
+    const moreMenu = (
+        <TicketMoreMenu
+            ticket={ticket}
+            trigger={
+                <Button variant={"outline"} size={"icon"}>
+                    <LucideMoreVertical className="h-4 w-4" />
+                </Button>
+            }
+        />
     )
     return (
-        <div 
+        <div
             className={clsx("w-full flex gap-x-1", {
                 "max-w-[580px]": isDetail,
                 "max-w-[420px]": !isDetail,
@@ -53,7 +65,7 @@ const TicketItem = async ({ ticket, isDetail }: TicketItemProps) => {
                     </CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <span 
+                    <span
                         className={clsx("whitespace-break-spaces", {
                             "line-clamp-3": !isDetail
                         })}
@@ -64,10 +76,11 @@ const TicketItem = async ({ ticket, isDetail }: TicketItemProps) => {
                     <p className="text-sm text-muted-foreground">{toCurrencyFromCent(ticket.bounty)}</p>
                 </CardFooter>
             </Card>
-            {isDetail ? 
+            {isDetail ?
                 <>
                     {editButton}
                     {deleteButton}
+                    {moreMenu}
                 </>
                 :
                 <>
