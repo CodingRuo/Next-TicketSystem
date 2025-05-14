@@ -1,9 +1,9 @@
 import { signOut } from "@/features/auth/actions/sign-out";
 import { User } from "@/generated/prisma/client"
-import { SubmitButton } from "./form/submit-button";
+import { SubmitButton } from "../../components/form/submit-button";
 import { LucideClock, LucideLogOut, LucideUser } from "lucide-react";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
-import { Avatar, AvatarFallback } from "./ui/avatar";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../components/ui/dropdown-menu";
+import { Avatar, AvatarFallback } from "../../components/ui/avatar";
 import Link from "next/link";
 import { accountPasswordPath, accountProfilePath } from "@/path";
 
