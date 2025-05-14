@@ -1,7 +1,11 @@
+"use client";
+
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Ticket, TicketStatus } from "@/generated";
 import { LucideTrash } from "lucide-react";
 import { TICKET_STATUS_LABELS } from "../constants";
+import { updateTicketStatus } from "../actions/update-ticket-status";
+import { toast } from "sonner";
 
 type TicketMoreMenuProps = {
     ticket: Ticket;
@@ -9,6 +13,19 @@ type TicketMoreMenuProps = {
 };
 
 const TicketMoreMenu = ({ ticket, trigger }: TicketMoreMenuProps) => {
+    const handleUpdateTicketStatus = async (value: string) => {
+        const result = await updateTicketStatus(
+            ticket.id, 
+            value as TicketStatus
+        );
+
+        if (result.status === "ERROR") {
+            toast.error(result.message);
+        } else if (result.status === "SUCCESS") {
+            toast.success(result.message);
+        }
+    };
+
     const deleteButton = (
         <DropdownMenuItem>
             <LucideTrash className="h-4 w-4"/>
@@ -17,7 +34,10 @@ const TicketMoreMenu = ({ ticket, trigger }: TicketMoreMenuProps) => {
     );
 
     const ticketStatusRadioGroupItems = (
-        <DropdownMenuRadioGroup value={ticket.status}>
+        <DropdownMenuRadioGroup 
+            value={ticket.status}
+            onValueChange={handleUpdateTicketStatus}    
+        >
             {(Object.keys(TICKET_STATUS_LABELS) as Array<TicketStatus>).map((key) => (
                 <DropdownMenuRadioItem key={key} value={key}>
                     {TICKET_STATUS_LABELS[key]}
