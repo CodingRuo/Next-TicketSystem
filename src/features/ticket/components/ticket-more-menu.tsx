@@ -1,6 +1,7 @@
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Ticket } from "@/generated";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Ticket, TicketStatus } from "@/generated";
 import { LucideTrash } from "lucide-react";
+import { TICKET_STATUS_LABELS } from "../constants";
 
 type TicketMoreMenuProps = {
     ticket: Ticket;
@@ -15,10 +16,24 @@ const TicketMoreMenu = ({ ticket, trigger }: TicketMoreMenuProps) => {
         </DropdownMenuItem>
     );
 
+    const ticketStatusRadioGroupItems = (
+        <DropdownMenuRadioGroup value={ticket.status}>
+            {(Object.keys(TICKET_STATUS_LABELS) as Array<TicketStatus>).map((key) => (
+                <DropdownMenuRadioItem key={key} value={key}>
+                    {TICKET_STATUS_LABELS[key]}
+                </DropdownMenuRadioItem>
+            ))}
+        </DropdownMenuRadioGroup>
+    )
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56" side="right">{deleteButton}</DropdownMenuContent>
+            <DropdownMenuContent className="w-56" side="right">
+                {ticketStatusRadioGroupItems}
+                <DropdownMenuSeparator />
+                {deleteButton}
+            </DropdownMenuContent>
         </DropdownMenu>
     )
 };
