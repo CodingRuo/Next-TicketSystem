@@ -25,7 +25,18 @@
     }
 }
 
+@keyframes sidebar-from-left {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
 @theme inline {
+    --animate-siderbar-from-left: sidebar-from-left 0.5s ease-out;
     --animate-header-from-top: header-from-top 0.5s ease-out;
     --animate-fade-from-top: fade-from-top 0.5s ease-out;
     --color-background: var(--background);
