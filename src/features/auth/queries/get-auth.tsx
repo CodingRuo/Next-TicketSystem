@@ -40,3 +40,5 @@ const getAuth = cache(async () => {
 
     return result;
 })
+
+export { getAuth };
