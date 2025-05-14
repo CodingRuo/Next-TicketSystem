@@ -1,24 +1,25 @@
-import { User as AuthUser } from 'lucia'
-import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { getAuth } from '../queries/get-auth';
+import { useEffect, useState } from "react";
+import { getAuth } from "../queries/get-auth";
+import { User } from "@prisma/client";
 
 const useAuth = () => {
-    const [user, setUser] = useState<AuthUser | null>(null);
-    const [isFetched, setFetched] = useState(false);
-    const pathName = usePathname();
+  const [user, setUser] = useState<User | null>(null);
+  const [isFetched, setFetched] = useState(false);
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            const { user } = await getAuth();
-            setUser(user);
-            setFetched(true);
-        }
+  const pathname = usePathname();
 
-        fetchUser();
-    }, [pathName]);
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { user } = await getAuth();
+      setUser(user);
+      setFetched(true);
+    };
 
-    return { user, isFetched }
-}
+    fetchUser();
+  }, [pathname]);
+
+  return { user, isFetched };
+};
 
 export { useAuth };
