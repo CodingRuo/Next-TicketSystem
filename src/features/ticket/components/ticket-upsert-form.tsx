@@ -1,16 +1,16 @@
 "use client";
 
 import { useActionState, useRef } from "react";
+import { DatePicker, ImperativeHandleFromDatePicker } from "@/components/date-picker";
 import { FieldError } from "@/components/form/field-error";
 import { Form } from "@/components/form/form";
 import { SubmitButton } from "@/components/form/submit-button";
 import { EMPTY_ACTION_STATE } from "@/components/form/utils/to-action-state";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Ticket } from "@/generated"
+import { Ticket } from "@/generated/prisma/client"
 import { fromCent } from "@/utils/currency";
 import { upsertTicket } from "../actions/upsert-ticket";
-import { DatePicker, ImperativeHandleFromDatePicker } from "@/components/date-picker";
 
 type TicketUpsertFormProps = {
     ticket?: Ticket;

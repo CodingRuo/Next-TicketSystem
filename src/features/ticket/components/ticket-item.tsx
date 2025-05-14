@@ -1,9 +1,9 @@
 import clsx from "clsx";
-import { LucideArrowUpRightFromSquare, LucideMoreVertical, LucidePencil, LucideTrash } from "lucide-react";
+import { LucideArrowUpRightFromSquare, LucideMoreVertical, LucidePencil } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Ticket } from "@/generated";
+import { Ticket } from "@/generated/prisma/client";
 import { ticketEditPath, ticketPath } from "@/path";
 import { toCurrencyFromCent } from "@/utils/currency";
 import { TICKET_ICONS } from "../constants";

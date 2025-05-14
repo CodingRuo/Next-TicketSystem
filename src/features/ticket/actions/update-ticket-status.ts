@@ -1,10 +1,10 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { fromErrorToActionState, toActionState } from "@/components/form/utils/to-action-state";
-import { TicketStatus } from "@/generated";
+import { TicketStatus } from "@/generated/prisma/client";
 import { prisma } from "@/lib/prisma";
 import { ticketsPath } from "@/path";
-import { revalidatePath } from "next/cache";
 
 export const updateTicketStatus = async (id: string, status: TicketStatus) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));

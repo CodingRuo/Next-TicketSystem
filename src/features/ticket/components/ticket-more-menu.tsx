@@ -13,10 +13,10 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Ticket, TicketStatus } from "@/generated/prisma/client";
 import { deleteTicket } from "../actions/delete-ticket";
 import { updateTicketStatus } from "../actions/update-ticket-status";
 import { TICKET_STATUS_LABELS } from "../constants";
-import { Ticket, TicketStatus } from "@/generated";
 
 type TicketMoreMenuProps = {
     ticket: Ticket;

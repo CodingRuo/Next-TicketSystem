@@ -1,5 +1,5 @@
 import { cache } from "react";
-import { Ticket } from "@/generated";
+import { Ticket } from "@/generated/prisma/client";
 import { prisma } from "@/lib/prisma";
 
 export const getTickets = async (): Promise<Ticket[]> => {

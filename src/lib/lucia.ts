@@ -1,5 +1,5 @@
-import { Lucia } from 'lucia'
 import { PrismaAdapter } from '@lucia-auth/adapter-prisma'
+import { Lucia } from 'lucia'
 import { prisma } from './prisma';
 
 const adapter = new PrismaAdapter(prisma.session, prisma.user);
