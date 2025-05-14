@@ -1,7 +1,7 @@
 "use client";
 
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { accountProfilePath, accountPasswordPath } from "@/path";
-import { Tabs, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import Link from "next/link";
 import { usePathname } from "next/navigation"
 
