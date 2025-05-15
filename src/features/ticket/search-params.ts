@@ -2,7 +2,7 @@ import { createSearchParamsCache, parseAsInteger, parseAsString } from "nuqs/ser
 
 export const paginationParser = {
     page: parseAsInteger.withDefault(0),
-    size: parseAsInteger.withDefault(2),
+    size: parseAsInteger.withDefault(5),
 }
 
 export const paginationOptions = {
