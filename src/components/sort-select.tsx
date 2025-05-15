@@ -1,12 +1,12 @@
 "use client";
 
-import { usePathname, useRouter,useSearchParams } from "next/navigation";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import { useQueryState } from "nuqs";
-import { sortParser } from "@/features/ticket/search-params";
+import { useQueryStates } from "nuqs";
+import { sortOptions, sortParser } from "@/features/ticket/search-params";
 
 type Option = {
-    value: string;
+    sortKey: string;
+    sortValue: string;
     label: string;
 };
 
@@ -15,23 +15,30 @@ type SortSelectProps = {
 }
 
 const SortSelect = ({ options }: SortSelectProps) => {
-    const [sort, setSort] = useQueryState("sort", sortParser);
+    const [sort, setSort] = useQueryStates(sortParser, sortOptions);
 
-    const handleSort = (value: string) => {
-        setSort(value);
+    const handleSort = (sortKey: string) => {
+        const sortValue = options.find(
+            (option) => option.sortKey === sortKey
+        )?.sortValue;
+
+        setSort({
+            sortKey,
+            sortValue
+        })
     }
 
     return (
         <Select
             onValueChange={handleSort}
-            defaultValue={sort}
+            defaultValue={sort.sortKey}
         >
             <SelectTrigger>
                 <SelectValue />
             </SelectTrigger>
             <SelectContent>
                 {options.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
+                    <SelectItem key={option.sortKey} value={option.sortKey}>
                         {option.label}
                     </SelectItem>
                 ))}
