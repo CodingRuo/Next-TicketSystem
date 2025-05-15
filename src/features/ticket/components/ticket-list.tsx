@@ -5,6 +5,7 @@ import { ParsedSearchParams } from '../search-params';
 import { TicketItem } from './ticket-item';
 import { TicketSearchInput } from './ticket-search-input';
 import { TicketSortSelect } from './ticket-sort-select';
+import { TicketPagination } from './ticket-pagination';
 
 type TicketListProps = {
     userId?: string;
@@ -29,6 +30,9 @@ const Ticketlist = async ({ userId, searchParams }: TicketListProps) => {
             {tickets.length ? tickets.map((ticket) => (
                 <TicketItem key={ticket.id} ticket={ticket} />
             )) : (<Placeholder label='No tickets found' />)}
+            <div className="w-full max-w-[420px]">
+                <TicketPagination />
+            </div>
         </div>
     );
 };
