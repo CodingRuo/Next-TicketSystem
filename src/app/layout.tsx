@@ -1,11 +1,11 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Header } from '@/app/_navigation/header';
 import { ThemeProvider } from '@/components/theme/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { Sidebar } from './_navigation/sidebar/sidebar';
-import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 const geistSans = Geist({
     variable: '--font-geist-sans',

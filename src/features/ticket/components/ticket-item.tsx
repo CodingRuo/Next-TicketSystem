@@ -13,13 +13,13 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import { toCurrencyFromCent } from "@/utils/currency";
-import { TICKET_ICONS } from "../constants";
-import { TicketMoreMenu } from "./ticket-more-menu";
-import { ticketPath, ticketEditPath } from "@/path";
-import { TicketWithMetadata } from "../types/types";
 import { getAuth } from "@/features/auth/queries/get-auth";
 import { isOwner } from "@/features/auth/utils/is-owner";
+import { ticketEditPath,ticketPath } from "@/path";
+import { toCurrencyFromCent } from "@/utils/currency";
+import { TICKET_ICONS } from "../constants";
+import { TicketWithMetadata } from "../types/types";
+import { TicketMoreMenu } from "./ticket-more-menu";
 
 type TicketItemProps = {
     ticket: TicketWithMetadata;

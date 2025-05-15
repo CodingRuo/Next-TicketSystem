@@ -1,11 +1,10 @@
-import { usePathname } from "next/navigation";
-import { NavItem } from "./types";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 import { cloneElement } from "react";
-import { closedClassName } from "./constants";
-import { Separator } from "@/components/ui/separator";
 import { buttonVariants } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
+import { closedClassName } from "./constants";
+import { NavItem } from "./types";
 
 type SidebarItemProps = {
     isOpen: boolean;

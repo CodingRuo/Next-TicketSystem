@@ -1,11 +1,12 @@
+import { SearchParams } from 'nuqs/server';
 import { Suspense } from 'react';
 import { CardCompact } from '@/components/card-compact';
 import { Heading } from '@/components/heading';
 import { Spinner } from '@/components/spinner';
+import { getAuth } from '@/features/auth/queries/get-auth';
 import { Ticketlist } from '@/features/ticket/components/ticket-list';
 import { TicketUpsertForm } from '@/features/ticket/components/ticket-upsert-form';
-import { getAuth } from '@/features/auth/queries/get-auth';
-import { SearchParams } from '@/features/ticket/search-params';
+import { searchParamsCache } from '@/features/ticket/search-params';
 
 type TickesPageProps = {
     searchParams: Promise<SearchParams>;
@@ -26,7 +27,7 @@ const TicketsPage = async ({ searchParams }: TickesPageProps) => {
                 content={<TicketUpsertForm />}
             />
             <Suspense fallback={<Spinner />}>
-                <Ticketlist userId={user?.id} searchParams={await searchParams }/>
+                <Ticketlist userId={user?.id} searchParams={searchParamsCache.parse(await searchParams)}/>
             </Suspense>
         </div>
     );

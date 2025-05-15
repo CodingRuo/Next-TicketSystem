@@ -1,12 +1,12 @@
 import { notFound } from "next/navigation";
+import { BreadCrumbs } from "@/components/breadcrumbs";
 import { CardCompact } from "@/components/card-compact";
-import { TicketUpsertForm } from "@/features/ticket/components/ticket-upsert-form";
-import { getTicket } from "@/features/ticket/queries/get-ticket";
+import { Separator } from "@/components/ui/separator";
 import { getAuth } from "@/features/auth/queries/get-auth";
 import { isOwner } from "@/features/auth/utils/is-owner";
-import { BreadCrumbs } from "@/components/breadcrumbs";
+import { TicketUpsertForm } from "@/features/ticket/components/ticket-upsert-form";
+import { getTicket } from "@/features/ticket/queries/get-ticket";
 import { homePath, ticketPath } from "@/path";
-import { Separator } from "@/components/ui/separator";
 
 type TicketEditPageProps = {
     params: Promise<{

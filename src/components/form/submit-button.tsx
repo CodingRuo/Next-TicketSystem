@@ -1,10 +1,10 @@
 "use client";
 
+import clsx from "clsx";
 import { LucideLoaderCircle } from "lucide-react";
+import { cloneElement } from "react";
 import { useFormStatus } from "react-dom";
 import { Button } from "../ui/button";
-import { cloneElement } from "react";
-import clsx from "clsx";
 
 type SubmitButtonProps = {
     label?: string;
@@ -23,7 +23,7 @@ const SubmitButton = ({ label, icon, variant = "default", size = "default" }: Su
     const { pending } = useFormStatus();
 
     return (
-        <Button disabled={pending} type="submit">
+        <Button disabled={pending} type="submit" variant={variant} size={size}>
             {pending && (
                 <LucideLoaderCircle 
                     className={clsx("h-4 w-4 animate-spin", {

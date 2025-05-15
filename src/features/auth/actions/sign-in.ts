@@ -10,9 +10,9 @@ import {
 import { verifyPasswordHash } from "@/features/password/utils/hash-and-verify";
 import { createSession } from "@/lib/lucia";
 import { prisma } from "@/lib/prisma";
+import { ticketsPath } from "@/path";
 import { generateRandomToken } from "@/utils/crypto";
 import { setSessionCookie } from "../utils/session-cookie";
-import { ticketsPath } from "@/path";
 
 const signInSchema = z.object({
   email: z.string().min(1, { message: "Is required" }).max(191).email(),
