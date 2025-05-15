@@ -163,7 +163,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/codingruo/Coding/Learning/Next-TicketSystem/src/generated/prisma/client",
+      "value": "/Users/codingruo/_Development/Learning/RobinWieruch/the-road-to-next/src/generated/prisma/client",
       "fromEnvVar": null
     },
     "config": {
@@ -177,7 +177,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/codingruo/Coding/Learning/Next-TicketSystem/prisma/schema.prisma",
+    "sourceFilePath": "/Users/codingruo/_Development/Learning/RobinWieruch/the-road-to-next/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -191,11 +191,12 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgres://neondb_owner:npg_m7Dfxj2BvYuz@ep-soft-fog-a297qxtg-pooler.eu-central-1.aws.neon.tech/neondb?sslmode=require"
+        "value": null
       }
     }
   },

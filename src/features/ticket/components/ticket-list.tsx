@@ -1,10 +1,10 @@
 
 import { Placeholder } from '@/components/placeholder';
-import { SearchInput } from '@/components/search-input';
-import { SortSelect } from '@/components/sort-select';
 import { getTickets } from '../queries/get-tickets';
 import { ParsedSearchParams } from '../search-params';
 import { TicketItem } from './ticket-item';
+import { TicketSearchInput } from './ticket-search-input';
+import { TicketSortSelect } from './ticket-sort-select';
 
 type TicketListProps = {
     userId?: string;
@@ -12,24 +12,25 @@ type TicketListProps = {
 }
 
 const Ticketlist = async ({ userId, searchParams }: TicketListProps) => {
-  const tickets = await getTickets(userId, searchParams);
+    const tickets = await getTickets(userId, searchParams);
 
-  return (
-    <div className="flex-1 flex flex-col items-center gap-y-4 animate-fade-from-top">
-        <div className="w-full max-w-[420px] flex gap-x-2">
-           <SearchInput placeholder="Serach tickets..." />
-           <SortSelect
-                options={[
-                    { sortKey: "createdAt", sortValue: "desc", label: "Newest" },
-                    { sortKey: "bounty", sortValue: "asc", label: "Bounty" },
-                ]}
-           />
+    return (
+        <div className="flex-1 flex flex-col items-center gap-y-4 animate-fade-from-top">
+            <div className="w-full max-w-[420px] flex gap-x-2">
+                <TicketSearchInput placeholder="Search tickets..." />
+                <TicketSortSelect
+                    options={[
+                        { sortKey: "createdAt", sortValue: "desc", label: "Newest" },
+                        { sortKey: "createdAt", sortValue: "asc", label: "Oldest" },
+                        { sortKey: "bounty", sortValue: "asc", label: "Bounty" },
+                    ]}
+                />
+            </div>
+            {tickets.length ? tickets.map((ticket) => (
+                <TicketItem key={ticket.id} ticket={ticket} />
+            )) : (<Placeholder label='No tickets found' />)}
         </div>
-      {tickets.length ? tickets.map((ticket) => (
-        <TicketItem key={ticket.id} ticket={ticket} />
-      )): ( <Placeholder label='No tickets found' />)}
-    </div>
-  );
+    );
 };
 
 export { Ticketlist }
