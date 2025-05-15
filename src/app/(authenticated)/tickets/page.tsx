@@ -5,8 +5,13 @@ import { Spinner } from '@/components/spinner';
 import { Ticketlist } from '@/features/ticket/components/ticket-list';
 import { TicketUpsertForm } from '@/features/ticket/components/ticket-upsert-form';
 import { getAuth } from '@/features/auth/queries/get-auth';
+import { SearchParams } from '@/features/ticket/search-params';
 
-const TicketsPage = async () => {
+type TickesPageProps = {
+    searchParams: Promise<SearchParams>;
+};
+
+const TicketsPage = async ({ searchParams }: TickesPageProps) => {
     const { user } = await getAuth();
     return (
         <div className="flex-1 flex flex-col gap-y-8">
@@ -21,7 +26,7 @@ const TicketsPage = async () => {
                 content={<TicketUpsertForm />}
             />
             <Suspense fallback={<Spinner />}>
-                <Ticketlist userId={user?.id} />
+                <Ticketlist userId={user?.id} searchParams={await searchParams }/>
             </Suspense>
         </div>
     );
