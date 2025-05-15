@@ -13,7 +13,7 @@ type TicketListProps = {
 }
 
 const Ticketlist = async ({ userId, searchParams }: TicketListProps) => {
-    const tickets = await getTickets(userId, searchParams);
+    const { list: tickets, metadata: ticketMetdata } = await getTickets(userId, searchParams);
 
     return (
         <div className="flex-1 flex flex-col items-center gap-y-4 animate-fade-from-top">
@@ -31,7 +31,7 @@ const Ticketlist = async ({ userId, searchParams }: TicketListProps) => {
                 <TicketItem key={ticket.id} ticket={ticket} />
             )) : (<Placeholder label='No tickets found' />)}
             <div className="w-full max-w-[420px]">
-                <TicketPagination />
+                <TicketPagination paginatedTicketMetadata={ticketMetdata} />
             </div>
         </div>
     );
