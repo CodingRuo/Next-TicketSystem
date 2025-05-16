@@ -1,17 +1,17 @@
 import { CardCompact } from "@/components/card-compact";
-import { getComments } from "../queries/get-comments";
 import { CommentItem } from "./comment-item";
 import { CommentCreateForm } from "./comment-create-form";
 import { CommentDeleteButton } from "./comment-delete-button";
 import { isOwner } from "@/features/auth/utils/is-owner";
 import { getAuth } from "@/features/auth/queries/get-auth";
+import { CommentWithMetadata } from "../types";
 
 type CommentsProps = {
     ticketId: string;
+    comments?: CommentWithMetadata[];
 }
 
-const Comments = async ({ ticketId }: CommentsProps) => {
-    const comments = await getComments(ticketId);
+const Comments = async ({ ticketId, comments }: CommentsProps) => {
     const { user } = await getAuth();
 
     return (
@@ -22,7 +22,7 @@ const Comments = async ({ ticketId }: CommentsProps) => {
             content={<CommentCreateForm ticketId={ticketId} />}
         />
             <div className="flex flex-col gap-y-2">
-                {comments.map((comment) => (
+                {comments?.map((comment) => (
                     <CommentItem 
                         key={comment.id} 
                         comment={comment}
