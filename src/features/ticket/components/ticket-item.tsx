@@ -15,11 +15,12 @@ import {
 } from "@/components/ui/card";
 import { getAuth } from "@/features/auth/queries/get-auth";
 import { isOwner } from "@/features/auth/utils/is-owner";
-import { ticketEditPath,ticketPath } from "@/path";
+import { ticketEditPath, ticketPath } from "@/path";
 import { toCurrencyFromCent } from "@/utils/currency";
 import { TICKET_ICONS } from "../constants";
 import { TicketWithMetadata } from "../types/types";
 import { TicketMoreMenu } from "./ticket-more-menu";
+import { Comments } from "@/features/comment/components/comments";
 
 type TicketItemProps = {
     ticket: TicketWithMetadata;
@@ -44,9 +45,9 @@ const TicketItem = async ({ ticket, isDetail }: TicketItemProps) => {
                 <LucidePencil className="h-4 w-4" />
             </Link>
         </Button>
-    ): null;
+    ) : null;
 
-    const moreMenu =  isTicketOwner ? (
+    const moreMenu = isTicketOwner ? (
         <TicketMoreMenu
             ticket={ticket}
             trigger={
@@ -59,50 +60,52 @@ const TicketItem = async ({ ticket, isDetail }: TicketItemProps) => {
 
     return (
         <div
-            className={clsx("w-full flex gap-x-1", {
+            className={clsx("w-full flex flex-col gap-y-4", {
                 "max-w-[580px]": isDetail,
                 "max-w-[420px]": !isDetail,
             })}
         >
-            <Card className="w-full">
-                <CardHeader>
-                    <CardTitle className="flex gap-x-2">
-                        <span>{TICKET_ICONS[ticket.status]}</span>
-                        <span className="truncate">{ticket.title}</span>
-                    </CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <span
-                        className={clsx("whitespace-break-spaces", {
-                            "line-clamp-3": !isDetail,
-                        })}
-                    >
-                        {ticket.content}
-                    </span>
-                </CardContent>
-                <CardFooter className="flex justify-between">
-                    <p className="text-sm text-muted-foreground">
-                        {ticket.deadline} by {ticket.user.username}
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                        {toCurrencyFromCent(ticket.bounty)}
-                    </p>
-                </CardFooter>
-            </Card>
-
-            <div className="flex flex-col gap-y-1">
-                {isDetail ? (
-                    <>
-                        {editButton}
-                        {moreMenu}
-                    </>
-                ) : (
-                    <>
-                        {detailButton}
-                        {editButton}
-                    </>
-                )}
+            <div className="flex gap-x-2">
+                <Card className="w-full">
+                    <CardHeader>
+                        <CardTitle className="flex gap-x-2">
+                            <span>{TICKET_ICONS[ticket.status]}</span>
+                            <span className="truncate">{ticket.title}</span>
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <span
+                            className={clsx("whitespace-break-spaces", {
+                                "line-clamp-3": !isDetail,
+                            })}
+                        >
+                            {ticket.content}
+                        </span>
+                    </CardContent>
+                    <CardFooter className="flex justify-between">
+                        <p className="text-sm text-muted-foreground">
+                            {ticket.deadline} by {ticket.user.username}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                            {toCurrencyFromCent(ticket.bounty)}
+                        </p>
+                    </CardFooter>
+                </Card>
+                <div className="flex flex-col gap-y-1">
+                    {isDetail ? (
+                        <>
+                            {editButton}
+                            {moreMenu}
+                        </>
+                    ) : (
+                        <>
+                            {detailButton}
+                            {editButton}
+                        </>
+                    )}
+                </div>
             </div>
+            {isDetail ? <Comments ticketId={ticket.id} /> : null}
         </div>
     );
 };
