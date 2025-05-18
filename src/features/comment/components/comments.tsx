@@ -6,6 +6,7 @@ import { CommentCreateForm } from "./comment-create-form";
 import { CommentDeleteButton } from "./comment-delete-button";
 import { CommentWithMetadata } from "../types";
 import { Button } from "@/components/ui/button";
+import { getComments } from "../queries/get-comments";
 
 type CommentsProps = {
     ticketId: string;
@@ -13,8 +14,9 @@ type CommentsProps = {
 }
 
 const Comments = ({ ticketId, comments }: CommentsProps) => {
-    const handleMore = () => {
-        console.log("More")
+    const handleMore = async () => {
+        const result = await getComments(ticketId);
+        console.log("More", result)
     };
 
     return (
