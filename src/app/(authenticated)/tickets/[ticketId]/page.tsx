@@ -5,6 +5,7 @@ import { TicketItem } from "@/features/ticket/components/ticket-item";
 import { getTicket } from "@/features/ticket/queries/get-ticket";
 import { homePath } from "@/path";
 import { getComments } from "@/features/comment/queries/get-comments";
+import { Comments } from "@/features/comment/components/comments";
 
 type TicketsPageProps = {
     params: Promise<{
@@ -36,7 +37,7 @@ const TicketPage = async ({ params }: TicketsPageProps) => {
             />
             <Separator />
             <div className="flex justify-center animate-fade-from-top">
-                <TicketItem ticket={ticket} isDetail comments={comments}/>
+                <TicketItem ticket={ticket} isDetail comments={<Comments ticketId={ticket.id} comments={comments} />}/>
             </div>
         </div>
     )
