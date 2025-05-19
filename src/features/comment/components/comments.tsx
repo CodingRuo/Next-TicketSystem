@@ -20,25 +20,27 @@ type CommentsProps = {
 const Comments = ({ ticketId, paginatedComments }: CommentsProps) => {
 
     const [comments, setComments] = useState(paginatedComments.list);
+    const [metadata, setMetdata] = useState(paginatedComments.metadata);
 
     const handleMore = async () => {
-        const morePaginatedComments = await getComments(ticketId);
+        const morePaginatedComments = await getComments(ticketId, comments.length);
         const moreComments = morePaginatedComments.list;
 
-        setComments([ ...comments, ...moreComments ]);
+        setComments([...comments, ...moreComments]);
+        setMetdata(morePaginatedComments.metadata);
     };
 
     return (
         <>
-        <CardCompact 
-            title="Create Comment"
-            description="A new comment will be created"
-            content={<CommentCreateForm ticketId={ticketId} />}
-        />
+            <CardCompact
+                title="Create Comment"
+                description="A new comment will be created"
+                content={<CommentCreateForm ticketId={ticketId} />}
+            />
             <div className="flex flex-col gap-y-2">
                 {comments?.map((comment) => (
-                    <CommentItem 
-                        key={comment.id} 
+                    <CommentItem
+                        key={comment.id}
                         comment={comment}
                         buttons={[
                             ...(comment.isOwner ? [
@@ -49,12 +51,14 @@ const Comments = ({ ticketId, paginatedComments }: CommentsProps) => {
                 ))}
             </div>
             <div className="flex flex-col justify-center ml-8">
-                <Button
-                    variant={"ghost"}
-                    onClick={handleMore}
-                >
-                    More
-                </Button>
+                {metadata.hasNextPage && (
+                    <Button
+                        variant={"ghost"}
+                        onClick={handleMore}
+                    >
+                        More
+                    </Button>
+                )}
             </div>
         </>
     )
