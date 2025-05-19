@@ -7,16 +7,25 @@ import { CommentDeleteButton } from "./comment-delete-button";
 import { CommentWithMetadata } from "../types";
 import { Button } from "@/components/ui/button";
 import { getComments } from "../queries/get-comments";
+import { useState } from "react";
 
 type CommentsProps = {
     ticketId: string;
-    comments?: CommentWithMetadata[];
+    paginatedComments: {
+        list: CommentWithMetadata[];
+        metadata: { count: number; hasNextPage: boolean }
+    }
 }
 
-const Comments = ({ ticketId, comments }: CommentsProps) => {
+const Comments = ({ ticketId, paginatedComments }: CommentsProps) => {
+
+    const [comments, setComments] = useState(paginatedComments.list);
+
     const handleMore = async () => {
-        const result = await getComments(ticketId);
-        console.log("More", result)
+        const morePaginatedComments = await getComments(ticketId);
+        const moreComments = morePaginatedComments.list;
+
+        setComments([ ...comments, ...moreComments ]);
     };
 
     return (
