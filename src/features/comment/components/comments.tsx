@@ -8,6 +8,7 @@ import { CommentWithMetadata, PaginatedData } from "../types";
 import { Button } from "@/components/ui/button";
 import { getComments } from "../queries/get-comments";
 import { useState } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 type CommentsProps = {
     ticketId: string;
@@ -16,25 +17,23 @@ type CommentsProps = {
 
 const Comments = ({ ticketId, paginatedComments }: CommentsProps) => {
 
-    const [comments, setComments] = useState(paginatedComments.list);
-    const [metadata, setMetdata] = useState(paginatedComments.metadata);
+    const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
+        queryKey: ["comments", ticketId],
+        queryFn: ({ pageParam }) => getComments(ticketId, pageParam),
+        initialPageParam: undefined as string | undefined,
+        getNextPageParam: (lastPage) => lastPage.metadata.hasNextPage ? lastPage.metadata.cursor : undefined,
+    });
 
-    const handleMore = async () => {
-        const morePaginatedComments = await getComments(ticketId, metadata.cursor);
-        const moreComments = morePaginatedComments.list;
+    const comments = data?.pages.map((page) => page.list).flat() ?? [];
 
-        setComments([...comments, ...moreComments]);
-        setMetdata(morePaginatedComments.metadata);
-    };
+    const handleMore = () => fetchNextPage();
 
     const handleDeleteComment = (id: string) => {
-        setComments((prevComments) => prevComments.filter((comment) => comment.id !== id));
+
     }
 
     const handleCreateComment = (comment: CommentWithMetadata | undefined) => {
-        if (!comment) return;
 
-        setComments((prevComment) => [comment, ...prevComment]);
     }
 
     return (
@@ -67,10 +66,11 @@ const Comments = ({ ticketId, paginatedComments }: CommentsProps) => {
                 ))}
             </div>
             <div className="flex flex-col justify-center ml-8">
-                {metadata.hasNextPage && (
+                {hasNextPage && (
                     <Button
                         variant={"ghost"}
                         onClick={handleMore}
+                        disabled={isFetchingNextPage}
                     >
                         More
                     </Button>
