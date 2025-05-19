@@ -18,7 +18,7 @@ type UseConfirmDialogArgs = {
     title?: string;
     description?: string;
     action: () => Promise<ActionState>;
-    trigger: React.ReactElement<{ onClick?: () => void }>;
+    trigger: React.ReactElement<{ onClick?: () => void }> | ((isLoading: boolean) => React.ReactElement<{ onClick?: () => void }>);
     onSuccess?: (actionState: ActionState) => void;
 };
 
@@ -47,7 +47,7 @@ const useConfirmDialog = ({
         }
     }, [isPending]);
 
-    const dialogTrigger = cloneElement(trigger, {
+    const dialogTrigger = cloneElement(typeof trigger === "function" ? trigger(isPending) : trigger, {
         onClick: () => setIsOpen((state) => !state),
     });
 
