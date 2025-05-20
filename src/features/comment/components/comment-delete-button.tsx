@@ -1,8 +1,8 @@
 "use client";
 
+import { LucideLoaderCircle, LucideTrash } from "lucide-react";
 import { useConfirmDialog } from "@/components/confirm-dialog";
 import { Button } from "@/components/ui/button";
-import { LucideLoaderCircle, LucideTrash } from "lucide-react";
 import { deleteComment } from "../actions/delete-comment";
 
 type CommentDeleteButtonProps = {

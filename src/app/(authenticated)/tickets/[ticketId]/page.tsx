@@ -1,11 +1,11 @@
 import { notFound } from "next/navigation";
 import { BreadCrumbs } from "@/components/breadcrumbs";
 import { Separator } from "@/components/ui/separator";
+import { Comments } from "@/features/comment/components/comments";
+import { getComments } from "@/features/comment/queries/get-comments";
 import { TicketItem } from "@/features/ticket/components/ticket-item";
 import { getTicket } from "@/features/ticket/queries/get-ticket";
 import { homePath } from "@/path";
-import { getComments } from "@/features/comment/queries/get-comments";
-import { Comments } from "@/features/comment/components/comments";
 
 type TicketsPageProps = {
     params: Promise<{

@@ -1,8 +1,8 @@
 "use client";
 
 import { useQueryState, useQueryStates } from "nuqs";
-import { paginationOptions, paginationParser, searchParser } from "../search-params";
 import { SearchInput } from "@/components/search-input";
+import { paginationOptions, paginationParser, searchParser } from "../search-params";
 
 type SearchInputProps = {
     placeholder: string;

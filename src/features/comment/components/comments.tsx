@@ -1,15 +1,15 @@
 "use client";
 
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { useInView } from "react-intersection-observer";
 import { CardCompact } from "@/components/card-compact";
-import { CommentItem } from "./comment-item";
+import { Skeleton } from "@/components/ui/skeleton";
+import { getComments } from "../queries/get-comments";
+import { CommentWithMetadata, PaginatedData } from "../types";
 import { CommentCreateForm } from "./comment-create-form";
 import { CommentDeleteButton } from "./comment-delete-button";
-import { CommentWithMetadata, PaginatedData } from "../types";
-import { getComments } from "../queries/get-comments";
-import { useEffect } from "react";
-import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
-import { useInView } from "react-intersection-observer";
-import { Skeleton } from "@/components/ui/skeleton";
+import { CommentItem } from "./comment-item";
 
 type CommentsProps = {
     ticketId: string;
@@ -48,8 +48,6 @@ const Comments = ({ ticketId, paginatedComments }: CommentsProps) => {
     }, [fetchNextPage, hasNextPage, inView, isFetchingNextPage])
 
     const comments = data.pages.flatMap((page) => page.list);
-
-    const handleMore = () => fetchNextPage();
 
     const handleDeleteComment = () => queryClient.invalidateQueries({ queryKey })
 

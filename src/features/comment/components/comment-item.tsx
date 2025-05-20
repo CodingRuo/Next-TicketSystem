@@ -1,8 +1,8 @@
 "use client";
 
+import { format } from 'date-fns'
 import { Card } from "@/components/ui/card";
 import { CommentWithMetadata } from "../types"
-import { format } from 'date-fns'
 
 type CommentItemProps = {
     comment: CommentWithMetadata;

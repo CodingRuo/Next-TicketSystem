@@ -18,8 +18,6 @@ import { toCurrencyFromCent } from "@/utils/currency";
 import { TICKET_ICONS } from "../constants";
 import { TicketWithMetadata } from "../types/types";
 import { TicketMoreMenu } from "./ticket-more-menu";
-import { Comments } from "@/features/comment/components/comments";
-import { CommentWithMetadata } from "@/features/comment/types";
 
 type TicketItemProps = {
     ticket: TicketWithMetadata;
