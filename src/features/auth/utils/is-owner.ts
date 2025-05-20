@@ -1,4 +1,5 @@
-import { User } from "@prisma/client";
+import { User } from "@/generated/prisma/client";
+
 
 type Entity = {
     userId: string | null;
