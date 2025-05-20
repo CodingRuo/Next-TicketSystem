@@ -5,7 +5,6 @@ import { CommentItem } from "./comment-item";
 import { CommentCreateForm } from "./comment-create-form";
 import { CommentDeleteButton } from "./comment-delete-button";
 import { CommentWithMetadata, PaginatedData } from "../types";
-import { Button } from "@/components/ui/button";
 import { getComments } from "../queries/get-comments";
 import { useEffect } from "react";
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
@@ -24,21 +23,23 @@ const Comments = ({ ticketId, paginatedComments }: CommentsProps) => {
 
     const { ref, inView } = useInView();
 
-    const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
-        queryKey,
-        queryFn: ({ pageParam }) => getComments(ticketId, pageParam),
-        initialPageParam: undefined as string | undefined,
-        getNextPageParam: (lastPage) => lastPage.metadata.hasNextPage ? lastPage.metadata.cursor : undefined,
-        initialData: {
-            pages: [
-                {
-                    list: paginatedComments.list,
-                    metadata: paginatedComments.metadata
-                }
-            ],
-            pageParams: [undefined]
-        }
-    });
+    const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+        useInfiniteQuery({
+            queryKey,
+            queryFn: ({ pageParam }) => getComments(ticketId, pageParam),
+            initialPageParam: undefined as string | undefined,
+            getNextPageParam: (lastPage) =>
+                lastPage.metadata.hasNextPage ? lastPage.metadata.cursor : undefined,
+            initialData: {
+                pages: [
+                    {
+                        list: paginatedComments.list,
+                        metadata: paginatedComments.metadata,
+                    },
+                ],
+                pageParams: [undefined],
+            },
+        });
 
     useEffect(() => {
         if (inView && hasNextPage && !isFetchingNextPage) {
@@ -50,9 +51,9 @@ const Comments = ({ ticketId, paginatedComments }: CommentsProps) => {
 
     const handleMore = () => fetchNextPage();
 
-    const handleDeleteComment = queryClient.invalidateQueries({ queryKey })
+    const handleDeleteComment = () => queryClient.invalidateQueries({ queryKey })
 
-    const handleCreateComment = queryClient.invalidateQueries({ queryKey })
+    const handleCreateComment = () => queryClient.invalidateQueries({ queryKey })
 
     return (
         <>
@@ -60,8 +61,8 @@ const Comments = ({ ticketId, paginatedComments }: CommentsProps) => {
                 title="Create Comment"
                 description="A new comment will be created"
                 content={
-                    <CommentCreateForm 
-                        ticketId={ticketId} 
+                    <CommentCreateForm
+                        ticketId={ticketId}
                         onCreateComment={handleCreateComment}
                     />
                 }
@@ -73,8 +74,8 @@ const Comments = ({ ticketId, paginatedComments }: CommentsProps) => {
                         comment={comment}
                         buttons={[
                             ...(comment.isOwner ? [
-                                <CommentDeleteButton 
-                                    key="0" 
+                                <CommentDeleteButton
+                                    key="0"
                                     id={comment.id}
                                     onDeleteComment={handleDeleteComment}
                                 />
@@ -84,6 +85,10 @@ const Comments = ({ ticketId, paginatedComments }: CommentsProps) => {
                 ))}
                 {isFetchingNextPage && (
                     <>
+                        <div className="flex gap-x-2">
+                            <Skeleton className="h-[82px] w-full" />
+                            <Skeleton className="h-[40px] w-[40px]" />
+                        </div>
                         <div className="flex gap-x-2">
                             <Skeleton className="h-[82px] w-full" />
                             <Skeleton className="h-[40px] w-[40px]" />
