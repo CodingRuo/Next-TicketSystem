@@ -127,6 +127,12 @@ exports.Prisma.UserScalarFieldEnum = {
   passwordHash: 'passwordHash'
 };
 
+exports.Prisma.PasswordResetTokenScalarFieldEnum = {
+  tokenHash: 'tokenHash',
+  expiresAt: 'expiresAt',
+  userId: 'userId'
+};
+
 exports.Prisma.SessionScalarFieldEnum = {
   id: 'id',
   expiresAt: 'expiresAt',
@@ -175,6 +181,7 @@ exports.TicketStatus = exports.$Enums.TicketStatus = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  PasswordResetToken: 'PasswordResetToken',
   Session: 'Session',
   Ticket: 'Ticket',
   Comment: 'Comment'
