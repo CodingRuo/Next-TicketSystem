@@ -7,8 +7,10 @@ import { CommentDeleteButton } from "./comment-delete-button";
 import { CommentWithMetadata, PaginatedData } from "../types";
 import { Button } from "@/components/ui/button";
 import { getComments } from "../queries/get-comments";
-import { useState } from "react";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
+import { useInView } from "react-intersection-observer";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type CommentsProps = {
     ticketId: string;
@@ -17,24 +19,40 @@ type CommentsProps = {
 
 const Comments = ({ ticketId, paginatedComments }: CommentsProps) => {
 
+    const queryKey = ["comments", ticketId]
+    const queryClient = useQueryClient();
+
+    const { ref, inView } = useInView();
+
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
-        queryKey: ["comments", ticketId],
+        queryKey,
         queryFn: ({ pageParam }) => getComments(ticketId, pageParam),
         initialPageParam: undefined as string | undefined,
         getNextPageParam: (lastPage) => lastPage.metadata.hasNextPage ? lastPage.metadata.cursor : undefined,
+        initialData: {
+            pages: [
+                {
+                    list: paginatedComments.list,
+                    metadata: paginatedComments.metadata
+                }
+            ],
+            pageParams: [undefined]
+        }
     });
 
-    const comments = data?.pages.map((page) => page.list).flat() ?? [];
+    useEffect(() => {
+        if (inView && hasNextPage && !isFetchingNextPage) {
+            fetchNextPage();
+        }
+    }, [fetchNextPage, hasNextPage, inView, isFetchingNextPage])
+
+    const comments = data.pages.flatMap((page) => page.list);
 
     const handleMore = () => fetchNextPage();
 
-    const handleDeleteComment = (id: string) => {
+    const handleDeleteComment = queryClient.invalidateQueries({ queryKey })
 
-    }
-
-    const handleCreateComment = (comment: CommentWithMetadata | undefined) => {
-
-    }
+    const handleCreateComment = queryClient.invalidateQueries({ queryKey })
 
     return (
         <>
@@ -48,7 +66,7 @@ const Comments = ({ ticketId, paginatedComments }: CommentsProps) => {
                     />
                 }
             />
-            <div className="flex flex-col gap-y-2">
+            <div className="flex flex-col gap-y-2 ml-8">
                 {comments?.map((comment) => (
                     <CommentItem
                         key={comment.id}
@@ -64,16 +82,18 @@ const Comments = ({ ticketId, paginatedComments }: CommentsProps) => {
                         ]}
                     />
                 ))}
+                {isFetchingNextPage && (
+                    <>
+                        <div className="flex gap-x-2">
+                            <Skeleton className="h-[82px] w-full" />
+                            <Skeleton className="h-[40px] w-[40px]" />
+                        </div>
+                    </>
+                )}
             </div>
-            <div className="flex flex-col justify-center ml-8">
-                {hasNextPage && (
-                    <Button
-                        variant={"ghost"}
-                        onClick={handleMore}
-                        disabled={isFetchingNextPage}
-                    >
-                        More
-                    </Button>
+            <div ref={ref}>
+                {!hasNextPage && (
+                    <p className="text-right text-xs italic">No more comments.</p>
                 )}
             </div>
         </>
