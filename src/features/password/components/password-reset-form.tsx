@@ -6,15 +6,22 @@ import { SubmitButton } from "@/components/form/submit-button";
 import { EMPTY_ACTION_STATE } from "@/components/form/utils/to-action-state";
 import { Input } from "@/components/ui/input";
 import { useActionState } from "react";
-import { passwordForgot } from "../actions/password-forgot";
+import { passwordReset } from "../actions/password-reset";
 
-const PasswordResetForm = () => {
-    const [actionState, action] = useActionState(passwordForgot, EMPTY_ACTION_STATE);
+type PasswordResetFormProps = {
+    tokenId: string;
+}
+
+const PasswordResetForm = ({ tokenId }: PasswordResetFormProps) => {
+    const [actionState, action] = useActionState(passwordReset.bind(null, tokenId), EMPTY_ACTION_STATE);
 
     return (
         <Form action={action} actionState={actionState}>
-            <Input name="email" placeholder="Email" defaultValue={actionState.payload?.get("email") as string} />
-            <FieldError actionState={actionState} name="email" />
+            <Input type="password" name="password" placeholder="Password" defaultValue={actionState.payload?.get("password") as string} />
+            <FieldError actionState={actionState} name="password" />
+
+            <Input type="password" name="confirmPassword" placeholder="Confirm Password" defaultValue={actionState.payload?.get("confirmPassword") as string} />
+            <FieldError actionState={actionState} name="confirmPassword" />
 
             <SubmitButton label="Send Email" />
         </Form>
