@@ -1,6 +1,5 @@
 "use server";
 
-import { Prisma } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import {
@@ -14,6 +13,7 @@ import { prisma } from "@/lib/prisma";
 import { ticketsPath } from "@/path";
 import { generateRandomToken } from "@/utils/crypto";
 import { setSessionCookie } from "../utils/session-cookie";
+import { Prisma } from "@/generated/prisma/client";
 
 const signUpSchema = z
     .object({
