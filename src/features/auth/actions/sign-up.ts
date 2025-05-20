@@ -8,12 +8,12 @@ import {
     toActionState,
 } from "@/components/form/utils/to-action-state";
 import { hashPassword } from "@/features/password/utils/hash-and-verify";
+import { Prisma } from "@/generated/prisma/client";
 import { createSession } from "@/lib/lucia";
 import { prisma } from "@/lib/prisma";
 import { ticketsPath } from "@/path";
 import { generateRandomToken } from "@/utils/crypto";
 import { setSessionCookie } from "../utils/session-cookie";
-import { Prisma } from "@/generated/prisma/client";
 
 const signUpSchema = z
     .object({
