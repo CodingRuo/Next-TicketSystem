@@ -14,14 +14,14 @@ type FormProps = {
 const Form = ({ action, actionState, children, onError, onSuccess }: FormProps) => {
     useActionFeedback(actionState, {
         onSuccess: ({ actionState }) => {
-            if(actionState.message) {
+            if (actionState.message) {
                 toast.success(actionState.message);
             }
 
             onSuccess?.(actionState)
         },
         onError: ({ actionState }) => {
-            if(actionState.message) {
+            if (actionState.message) {
                 toast.error(actionState.message);
             }
 
