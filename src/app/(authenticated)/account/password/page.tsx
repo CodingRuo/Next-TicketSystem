@@ -1,6 +1,6 @@
 import { CardCompact } from "@/components/card-compact";
 import { Heading } from "@/components/heading";
-import { PasswordForgotForm } from "@/features/password/components/password-forgot-form";
+import { PasswordChangeForm } from "@/features/password/components/password-change-form";
 import { AccountTabs } from "../_navigation/tabs";
 
 const PasswordPage = () => {
@@ -17,7 +17,7 @@ const PasswordPage = () => {
                     title="Change Password"
                     description="Enter your current password"
                     className="w-full max-w-[420px] animate-fade-from-top"
-                    content={<PasswordForgotForm />}
+                    content={<PasswordChangeForm />}
                 />
             </div>
         </div>
