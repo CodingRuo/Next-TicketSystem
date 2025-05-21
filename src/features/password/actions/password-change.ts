@@ -7,6 +7,7 @@ import {
 } from "@/components/form/utils/to-action-state";
 import { getAuthOrRedirect } from "@/features/auth/queries/get-auth-or-redirect";
 import { z } from "zod";
+import { sendEmailPasswordReset } from "../emails/send-email-password-reset";
 import { generatePasswordResetLink } from "../utils/generate-password-reset-link";
 import { verifyPasswordHash } from "../utils/hash-and-verify";
 
@@ -34,8 +35,7 @@ export const passwordChange = async (_actionState: ActionState, formData: FormDa
 
         const passworResetLink = await generatePasswordResetLink(auth.user.id);
 
-        // TODO: Send email with password reset link
-        console.log(passworResetLink)
+        await sendEmailPasswordReset(auth.user.username, auth.user.email, passworResetLink);
     } catch (error) {
         return fromErrorToActionState(error, formData);
     }
