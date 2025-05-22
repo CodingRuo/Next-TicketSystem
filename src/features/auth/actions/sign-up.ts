@@ -1,7 +1,5 @@
 "use server";
 
-import { redirect } from "next/navigation";
-import { z } from "zod";
 import {
     ActionState,
     fromErrorToActionState,
@@ -13,6 +11,9 @@ import { createSession } from "@/lib/lucia";
 import { prisma } from "@/lib/prisma";
 import { ticketsPath } from "@/path";
 import { generateRandomToken } from "@/utils/crypto";
+import { redirect } from "next/navigation";
+import { z } from "zod";
+import { generateEmailVerificationCode } from "../utils/generate-email-verification-code";
 import { setSessionCookie } from "../utils/session-cookie";
 
 const signUpSchema = z
@@ -54,6 +55,10 @@ export const signUp = async (_actionState: ActionState, formData: FormData) => {
                 passwordHash,
             },
         });
+
+        const verificationCode = await generateEmailVerificationCode(user.id, email);
+
+        console.log(verificationCode)
 
         const sessionToken = generateRandomToken();
         const session = await createSession(sessionToken, user.id);
