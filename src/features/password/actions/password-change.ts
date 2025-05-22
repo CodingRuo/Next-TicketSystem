@@ -1,5 +1,6 @@
 "use server";
 
+import { z } from "zod";
 import {
     ActionState,
     fromErrorToActionState,
@@ -7,7 +8,6 @@ import {
 } from "@/components/form/utils/to-action-state";
 import { getAuthOrRedirect } from "@/features/auth/queries/get-auth-or-redirect";
 import { inngest } from "@/utils/inngest";
-import { z } from "zod";
 import { verifyPasswordHash } from "../utils/hash-and-verify";
 
 const passwordChangeSchema = z.object({

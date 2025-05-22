@@ -1,5 +1,5 @@
-import { PasswordResetFunctionArgs } from "@/features/password/events/event-password-reset";
 import { EventSchemas, Inngest } from "inngest";
+import { PasswordResetFunctionArgs } from "@/features/password/events/event-password-reset";
 
 type Events = {
     "app/password.password-reset": PasswordResetFunctionArgs

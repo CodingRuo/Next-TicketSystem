@@ -1,5 +1,6 @@
 "use server";
 
+import { z } from "zod";
 import {
     ActionState,
     fromErrorToActionState,
@@ -7,7 +8,6 @@ import {
 } from "@/components/form/utils/to-action-state";
 import { prisma } from "@/lib/prisma";
 import { inngest } from "@/utils/inngest";
-import { z } from "zod";
 
 const passwordForgotSchema = z.object({
     email: z.string().min(1, { message: "Is required" }).max(191).email()
