@@ -31,10 +31,12 @@ const users = [
     {
         username: "admin",
         email: "admin@admin.com",
+        emailVerified: true
     },
     {
         username: "user",
-        email: "hello@road-to-next.com"
+        email: "r.schober@outlook.com",
+        emailVerified: false
     }
 ];
 
@@ -47,7 +49,7 @@ const comments = [
 const seed = async (): Promise<void> => {
     const t0 = performance.now();
     console.log("DB Seed: Started ...");
-    
+
     await prisma.comment.deleteMany();
     await prisma.ticket.deleteMany();
     await prisma.user.deleteMany();
@@ -75,7 +77,7 @@ const seed = async (): Promise<void> => {
             userId: dbUsers[1].id
         }))
     })
-    
+
     const t1 = performance.now();
     console.log(`DB Seed: Finished (${t1 - t0}ms)`);
 }
