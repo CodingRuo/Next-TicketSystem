@@ -20,8 +20,10 @@ const emailVerficationSchema = z.object({
     code: z.string().length(8),
 });
 
-export const emailVerfication = async (_actionState: ActionState, formData: FormData) => {
-    const { user } = await getAuthOrRedirect();
+export const emailVerification = async (_actionState: ActionState, formData: FormData) => {
+    const { user } = await getAuthOrRedirect({
+        checkEmailVerified: false
+    });
     try {
         const { code } = emailVerficationSchema.parse(
             Object.fromEntries(formData)

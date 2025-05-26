@@ -1,12 +1,12 @@
-import './globals.css';
-import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
-import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Header } from '@/app/_navigation/header';
 import { ThemeProvider } from '@/components/theme/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
+import type { Metadata } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Sidebar } from './_navigation/sidebar/sidebar';
 import { ReactQueryProvider } from './_providers/react-query/react-query-provider';
+import './globals.css';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
