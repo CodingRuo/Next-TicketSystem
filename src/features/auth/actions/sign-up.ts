@@ -11,9 +11,9 @@ import { createSession } from "@/lib/lucia";
 import { prisma } from "@/lib/prisma";
 import { ticketsPath } from "@/path";
 import { generateRandomToken } from "@/utils/crypto";
+import { inngest } from "@/utils/inngest";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { generateEmailVerificationCode } from "../utils/generate-email-verification-code";
 import { setSessionCookie } from "../utils/session-cookie";
 
 const signUpSchema = z
@@ -56,9 +56,12 @@ export const signUp = async (_actionState: ActionState, formData: FormData) => {
             },
         });
 
-        const verificationCode = await generateEmailVerificationCode(user.id, email);
-
-        console.log(verificationCode)
+        await inngest.send({
+            name: 'app/auth.sign-up',
+            data: {
+                userId: user.id,
+            }
+        })
 
         const sessionToken = generateRandomToken();
         const session = await createSession(sessionToken, user.id);
