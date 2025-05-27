@@ -17,7 +17,7 @@ export const getTickets = async (userId: string | undefined, searchParams: Parse
     const skip = searchParams.size * searchParams.page;
     const take = searchParams.size;
 
-     
+
     const [tickets, count] = await prisma.$transaction([
         prisma.ticket.findMany({
             where,
