@@ -9,3 +9,4 @@ export const passwordResetPath = () => "/password-reset";
 export const accountProfilePath = () => "/account/profile";
 export const accountPasswordPath = () => "/account/password";
 export const emailVerificationPath = () => '/email-verification';
+export const organizationsPath = () => '/organizations';
