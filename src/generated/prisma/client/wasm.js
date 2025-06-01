@@ -130,7 +130,8 @@ exports.Prisma.OrganizationScalarFieldEnum = {
 exports.Prisma.MembershipScalarFieldEnum = {
   organizationId: 'organizationId',
   userId: 'userId',
-  joinedAt: 'joinedAt'
+  joinedAt: 'joinedAt',
+  isActive: 'isActive'
 };
 
 exports.Prisma.UserScalarFieldEnum = {

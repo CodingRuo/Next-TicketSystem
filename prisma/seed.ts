@@ -74,7 +74,8 @@ const seed = async (): Promise<void> => {
     await prisma.membership.create({
         data: {
             userId: dbUsers[0].id,
-            organizationId: organization.id
+            organizationId: organization.id,
+            isActive: true
         }
     })
 

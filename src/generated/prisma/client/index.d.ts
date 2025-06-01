@@ -2732,18 +2732,21 @@ export namespace Prisma {
     organizationId: string | null
     userId: string | null
     joinedAt: Date | null
+    isActive: boolean | null
   }
 
   export type MembershipMaxAggregateOutputType = {
     organizationId: string | null
     userId: string | null
     joinedAt: Date | null
+    isActive: boolean | null
   }
 
   export type MembershipCountAggregateOutputType = {
     organizationId: number
     userId: number
     joinedAt: number
+    isActive: number
     _all: number
   }
 
@@ -2752,18 +2755,21 @@ export namespace Prisma {
     organizationId?: true
     userId?: true
     joinedAt?: true
+    isActive?: true
   }
 
   export type MembershipMaxAggregateInputType = {
     organizationId?: true
     userId?: true
     joinedAt?: true
+    isActive?: true
   }
 
   export type MembershipCountAggregateInputType = {
     organizationId?: true
     userId?: true
     joinedAt?: true
+    isActive?: true
     _all?: true
   }
 
@@ -2843,6 +2849,7 @@ export namespace Prisma {
     organizationId: string
     userId: string
     joinedAt: Date
+    isActive: boolean
     _count: MembershipCountAggregateOutputType | null
     _min: MembershipMinAggregateOutputType | null
     _max: MembershipMaxAggregateOutputType | null
@@ -2866,6 +2873,7 @@ export namespace Prisma {
     organizationId?: boolean
     userId?: boolean
     joinedAt?: boolean
+    isActive?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["membership"]>
@@ -2874,6 +2882,7 @@ export namespace Prisma {
     organizationId?: boolean
     userId?: boolean
     joinedAt?: boolean
+    isActive?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["membership"]>
@@ -2882,6 +2891,7 @@ export namespace Prisma {
     organizationId?: boolean
     userId?: boolean
     joinedAt?: boolean
+    isActive?: boolean
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["membership"]>
@@ -2890,9 +2900,10 @@ export namespace Prisma {
     organizationId?: boolean
     userId?: boolean
     joinedAt?: boolean
+    isActive?: boolean
   }
 
-  export type MembershipOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"organizationId" | "userId" | "joinedAt", ExtArgs["result"]["membership"]>
+  export type MembershipOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"organizationId" | "userId" | "joinedAt" | "isActive", ExtArgs["result"]["membership"]>
   export type MembershipInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     organization?: boolean | OrganizationDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -2916,6 +2927,7 @@ export namespace Prisma {
       organizationId: string
       userId: string
       joinedAt: Date
+      isActive: boolean
     }, ExtArgs["result"]["membership"]>
     composites: {}
   }
@@ -3344,6 +3356,7 @@ export namespace Prisma {
     readonly organizationId: FieldRef<"Membership", 'String'>
     readonly userId: FieldRef<"Membership", 'String'>
     readonly joinedAt: FieldRef<"Membership", 'DateTime'>
+    readonly isActive: FieldRef<"Membership", 'Boolean'>
   }
     
 
@@ -10376,7 +10389,8 @@ export namespace Prisma {
   export const MembershipScalarFieldEnum: {
     organizationId: 'organizationId',
     userId: 'userId',
-    joinedAt: 'joinedAt'
+    joinedAt: 'joinedAt',
+    isActive: 'isActive'
   };
 
   export type MembershipScalarFieldEnum = (typeof MembershipScalarFieldEnum)[keyof typeof MembershipScalarFieldEnum]
@@ -10614,6 +10628,7 @@ export namespace Prisma {
     organizationId?: StringFilter<"Membership"> | string
     userId?: StringFilter<"Membership"> | string
     joinedAt?: DateTimeFilter<"Membership"> | Date | string
+    isActive?: BoolFilter<"Membership"> | boolean
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
@@ -10622,6 +10637,7 @@ export namespace Prisma {
     organizationId?: SortOrder
     userId?: SortOrder
     joinedAt?: SortOrder
+    isActive?: SortOrder
     organization?: OrganizationOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
   }
@@ -10634,6 +10650,7 @@ export namespace Prisma {
     organizationId?: StringFilter<"Membership"> | string
     userId?: StringFilter<"Membership"> | string
     joinedAt?: DateTimeFilter<"Membership"> | Date | string
+    isActive?: BoolFilter<"Membership"> | boolean
     organization?: XOR<OrganizationScalarRelationFilter, OrganizationWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "organizationId_userId">
@@ -10642,6 +10659,7 @@ export namespace Prisma {
     organizationId?: SortOrder
     userId?: SortOrder
     joinedAt?: SortOrder
+    isActive?: SortOrder
     _count?: MembershipCountOrderByAggregateInput
     _max?: MembershipMaxOrderByAggregateInput
     _min?: MembershipMinOrderByAggregateInput
@@ -10654,6 +10672,7 @@ export namespace Prisma {
     organizationId?: StringWithAggregatesFilter<"Membership"> | string
     userId?: StringWithAggregatesFilter<"Membership"> | string
     joinedAt?: DateTimeWithAggregatesFilter<"Membership"> | Date | string
+    isActive?: BoolWithAggregatesFilter<"Membership"> | boolean
   }
 
   export type UserWhereInput = {
@@ -11064,6 +11083,7 @@ export namespace Prisma {
 
   export type MembershipCreateInput = {
     joinedAt?: Date | string
+    isActive: boolean
     organization: OrganizationCreateNestedOneWithoutMembershipsInput
     user: UserCreateNestedOneWithoutMembershipsInput
   }
@@ -11072,10 +11092,12 @@ export namespace Prisma {
     organizationId: string
     userId: string
     joinedAt?: Date | string
+    isActive: boolean
   }
 
   export type MembershipUpdateInput = {
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     organization?: OrganizationUpdateOneRequiredWithoutMembershipsNestedInput
     user?: UserUpdateOneRequiredWithoutMembershipsNestedInput
   }
@@ -11084,22 +11106,26 @@ export namespace Prisma {
     organizationId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type MembershipCreateManyInput = {
     organizationId: string
     userId: string
     joinedAt?: Date | string
+    isActive: boolean
   }
 
   export type MembershipUpdateManyMutationInput = {
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type MembershipUncheckedUpdateManyInput = {
     organizationId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserCreateInput = {
@@ -11549,6 +11575,11 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type OrganizationScalarRelationFilter = {
     is?: OrganizationWhereInput
     isNot?: OrganizationWhereInput
@@ -11568,23 +11599,29 @@ export namespace Prisma {
     organizationId?: SortOrder
     userId?: SortOrder
     joinedAt?: SortOrder
+    isActive?: SortOrder
   }
 
   export type MembershipMaxOrderByAggregateInput = {
     organizationId?: SortOrder
     userId?: SortOrder
     joinedAt?: SortOrder
+    isActive?: SortOrder
   }
 
   export type MembershipMinOrderByAggregateInput = {
     organizationId?: SortOrder
     userId?: SortOrder
     joinedAt?: SortOrder
+    isActive?: SortOrder
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type SessionListRelationFilter = {
@@ -11659,14 +11696,6 @@ export namespace Prisma {
     email?: SortOrder
     emailVerified?: SortOrder
     passwordHash?: SortOrder
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type PasswordResetTokenCountOrderByAggregateInput = {
@@ -11951,6 +11980,10 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type OrganizationUpdateOneRequiredWithoutMembershipsNestedInput = {
     create?: XOR<OrganizationCreateWithoutMembershipsInput, OrganizationUncheckedCreateWithoutMembershipsInput>
     connectOrCreate?: OrganizationCreateOrConnectWithoutMembershipsInput
@@ -12049,10 +12082,6 @@ export namespace Prisma {
     connectOrCreate?: CommentCreateOrConnectWithoutUserInput | CommentCreateOrConnectWithoutUserInput[]
     createMany?: CommentCreateManyUserInputEnvelope
     connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
   }
 
   export type SessionUpdateManyWithoutUserNestedInput = {
@@ -12535,12 +12564,14 @@ export namespace Prisma {
 
   export type MembershipCreateWithoutOrganizationInput = {
     joinedAt?: Date | string
+    isActive: boolean
     user: UserCreateNestedOneWithoutMembershipsInput
   }
 
   export type MembershipUncheckedCreateWithoutOrganizationInput = {
     userId: string
     joinedAt?: Date | string
+    isActive: boolean
   }
 
   export type MembershipCreateOrConnectWithoutOrganizationInput = {
@@ -12576,6 +12607,7 @@ export namespace Prisma {
     organizationId?: StringFilter<"Membership"> | string
     userId?: StringFilter<"Membership"> | string
     joinedAt?: DateTimeFilter<"Membership"> | Date | string
+    isActive?: BoolFilter<"Membership"> | boolean
   }
 
   export type OrganizationCreateWithoutMembershipsInput = {
@@ -12756,12 +12788,14 @@ export namespace Prisma {
 
   export type MembershipCreateWithoutUserInput = {
     joinedAt?: Date | string
+    isActive: boolean
     organization: OrganizationCreateNestedOneWithoutMembershipsInput
   }
 
   export type MembershipUncheckedCreateWithoutUserInput = {
     organizationId: string
     joinedAt?: Date | string
+    isActive: boolean
   }
 
   export type MembershipCreateOrConnectWithoutUserInput = {
@@ -13430,21 +13464,25 @@ export namespace Prisma {
   export type MembershipCreateManyOrganizationInput = {
     userId: string
     joinedAt?: Date | string
+    isActive: boolean
   }
 
   export type MembershipUpdateWithoutOrganizationInput = {
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneRequiredWithoutMembershipsNestedInput
   }
 
   export type MembershipUncheckedUpdateWithoutOrganizationInput = {
     userId?: StringFieldUpdateOperationsInput | string
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type MembershipUncheckedUpdateManyWithoutOrganizationInput = {
     userId?: StringFieldUpdateOperationsInput | string
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type SessionCreateManyUserInput = {
@@ -13467,6 +13505,7 @@ export namespace Prisma {
   export type MembershipCreateManyUserInput = {
     organizationId: string
     joinedAt?: Date | string
+    isActive: boolean
   }
 
   export type TicketCreateManyUserInput = {
@@ -13540,17 +13579,20 @@ export namespace Prisma {
 
   export type MembershipUpdateWithoutUserInput = {
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     organization?: OrganizationUpdateOneRequiredWithoutMembershipsNestedInput
   }
 
   export type MembershipUncheckedUpdateWithoutUserInput = {
     organizationId?: StringFieldUpdateOperationsInput | string
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type MembershipUncheckedUpdateManyWithoutUserInput = {
     organizationId?: StringFieldUpdateOperationsInput | string
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type TicketUpdateWithoutUserInput = {

@@ -27,7 +27,8 @@ export const createOrganization = async (_actionState: ActionState, formData: Fo
                 ...data,
                 memberships: {
                     create: {
-                        userId: user.id
+                        userId: user.id,
+                        isActive: false
                     }
                 }
             }
